@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
-const JobPosting = require('./jobPosting');
+const Job = require('./job');
 
 class Company extends Model {}
 
@@ -9,7 +9,7 @@ Company.init({
     com_id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        foreignKey: 'com_id', // ?
+        foreignKey: 'com_id',
         autoIncrement: true,
         primaryKey: true
     },
@@ -35,6 +35,6 @@ Company.init({
     timestamps: false
 });
 
-JobPosting.belongsTo(Company, { foreignKey: 'com_id', onDelete: 'cascade', onUpdate: 'cascade'});
+Job.belongsTo(Company, { foreignKey: 'com_id', onDelete: 'cascade', onUpdate: 'cascade'});
 
 module.exports = Company;
