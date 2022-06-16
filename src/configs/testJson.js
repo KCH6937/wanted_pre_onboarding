@@ -38,7 +38,7 @@ testJsons.companyData = [
     }
 ];
 
-testJsons.jobPostingData = [
+testJsons.jobData = [
     {
         'position': '백엔드 주니어 개발자',
         'compensation': 1000000,
