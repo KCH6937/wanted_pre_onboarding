@@ -37,5 +37,4 @@ Company.init({
 
 Job.belongsTo(Company, { foreignKey: 'com_id', onDelete: 'cascade', onUpdate: 'cascade' });
 
-
 module.exports = Company;
