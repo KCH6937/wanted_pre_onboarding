@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
+const ApplyHistory = require('./applyHistory');
 
 class Job extends Model {}
 
@@ -9,7 +10,8 @@ Job.init({
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
+        foreignKey: 'job_id'
     },
     // 채용포지션
     position: {
@@ -36,5 +38,7 @@ Job.init({
     modelName: 'job',
     timestamps: false
 });
+
+ApplyHistory.belongsTo(Job, { foreignKey: 'job_id', onDelete: 'cascade', onUpdate: 'cascade' });
 
 module.exports = Job;
