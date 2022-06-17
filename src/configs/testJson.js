@@ -52,7 +52,7 @@ testJsons.jobData = [
         'about': '네이버에서 Backend 시니어 개발자를 채용합니다. 자격요견은 ...'
     },
     {
-        'position': 'Backend 신입 개발자',
+        'position': 'Backend(Javascript) 신입 개발자',
         'compensation': 1000000,
         'skill': 'Node.js',
         'about': '당근마켓에서 Backend 신입 개발자를 채용합니다. 자격요견은 ...'
@@ -70,7 +70,7 @@ testJsons.jobData = [
         'about': '구글에서 iOS 주니어 개발자를 채용합니다. 자격요견은 ...'
     },
     {
-        'position': 'Android 3년차 개발자',
+        'position': 'Android(Java) 3년차 개발자',
         'compensation': 1000000,
         'skill': 'Java, Android Studio',
         'about': '카카오에서 Android 3년차 개발자를 채용합니다. 자격요견은 ...'
@@ -82,5 +82,13 @@ testJsons.jobData = [
         'about': '원티드코리아에서 프론트엔드 시니어 개발자를 채용합니다. 자격요견은 ...'
     }
 ];
+
+testJsons.user = [
+    { 'name': '강채현' },
+    { 'name': 'james' },
+    { 'name': 'jack' },
+    { 'name': 'jules'}
+];
+
 
 module.exports = testJsons;
