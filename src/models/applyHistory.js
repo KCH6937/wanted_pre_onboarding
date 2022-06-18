@@ -10,7 +10,7 @@ ApplyHistory.init({
         allowNull: false,
         autoIncrement: true,
         primaryKey: true
-    }    
+    }
 }, {
     sequelize,
     modelName: 'applyHistory',
