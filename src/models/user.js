@@ -1,5 +1,6 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../configs/database');
+const ApplyHistory = require('./applyHistory');
 
 class User extends Model {}
 
@@ -21,5 +22,7 @@ User.init({
     modelName: 'user',
     timestamps: false
 });
+
+ApplyHistory.belongsTo(User, { foreignKey: 'user_id', onDelete: 'cascade', onUpdate: 'cascade' });
 
 module.exports = User;
