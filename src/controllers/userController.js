@@ -49,7 +49,7 @@ userController.findAll = async (req, res) => {
 userController.apply = async (req, res) => {
     const {
         job_id,
-        user_id        
+        user_id
     } = req.body;
 
     // Validation - 유효하지 않은 값일 경우
@@ -58,18 +58,25 @@ userController.apply = async (req, res) => {
         return res.status(400).send('유효하지 않은 값입니다.');
     }
 
-    let isExistJob = await Job.findByPk(job_id) === null ? false : true;
+    let job = await Job.findByPk(job_id);
+    let user = await User.findByPk(user_id);
     
     // Validation - 지원하고자 하는 채용공고가 없을 경우
-    if(!isExistJob) {
+    if(!job) {
         console.log('지원하고자 하는 채용공고가 없습니다.');
         return res.status(400).send('지원하고자 하는 채용공고가 없습니다.');
+    }
+    
+    // Validation - 지원하고자 하는 사용자가 없을 경우
+    if(!user) {
+        console.log('지원하고자 하는 사용자가 없습니다.');
+        return res.status(400).send('지원하고자 하는 사용자가 없습니다.');
     }
 
     try {
         await ApplyHistory.create({ job_id, user_id });
         console.log('지원 완료');
-        res.status(200).send('지원 완료');
+        res.status(200).json({ message: `${user.name}님이 지원했습니다.`, '지원한 채용공고': job });
     } catch(err) {
         console.log('Server Error');
         console.log(err);
