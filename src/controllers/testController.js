@@ -12,7 +12,6 @@ testController.createJobAndCompanyAndUser = async (req, res) => {
     for(let json of testJsons.companyData) {
         await Company.create(json);
     }
-    console.log("1234");
     
     const companyName = ['원티드랩', '네이버', '당근마켓', '구글', '구글코리아', '카카오', '원티드코리아'];
     const companyId = [];
