@@ -1,6 +1,6 @@
 const Job = require('../models/job');
 const Company = require('../models/company');
-const { Op, where } = require('sequelize'); // 유사 검색을 위한 sequlize 기능 Op
+const { Op } = require('sequelize'); // 유사 검색을 위한 sequlize 기능 Op
 
 const jobController = {};
 
@@ -77,16 +77,15 @@ jobController.update = async (req, res) => {
 
     // Validation - 수정할 채용공고를 job_id 값으로 DB에서 찾아오는데 있는지 검증
     let job = await Job.findOne({ where: { job_id: updatedData.job_id } });
+    let preJob = JSON.parse(JSON.stringify(job));
     if(!job) {
         console.log('존재하지 않는 채용공고입니다.');
         return res.status(400).send('존재하지 않는 채용공고입니다.');
     }
 
-    // Validation - 채용공고 수정 값
     for(let key in updatedData) {
         if(!updatedData[key]) {
-            console.log('유효하지 않은 값입니다.');
-            return res.status(400).send('유효하지 않은 값입니다.');
+            continue;
         } else {
             if(key !== 'job_id') {
                 job[key] = updatedData[key];
@@ -98,7 +97,7 @@ jobController.update = async (req, res) => {
         await job.save(); // DB 반영
         console.log('수정되었습니다.');
         console.log(updatedData);
-        return res.status(200).json('수정되었습니다.');
+        return res.status(200).json({pre: preJob, now: job});
     } catch(err) {
         console.log(err);
         return res.status(500).send('Server Error');
@@ -124,7 +123,7 @@ jobController.delete = async (req, res) => {
     try {
         await Job.destroy({ where: {job_id: requestedId } });
         console.log('삭제되었습니다.');
-        return res.status(200).send('삭제되었습니다.');
+        return res.status(200).json({message: '삭제되었습니다.', '삭제된 채용공고': job});
     } catch(err) {
         console.log(err);
         return res.status(500).send('Server Error')
