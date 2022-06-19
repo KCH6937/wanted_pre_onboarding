@@ -60,7 +60,20 @@ userController.apply = async (req, res) => {
 
     let job = await Job.findByPk(job_id);
     let user = await User.findByPk(user_id);
+
+    const applyHistory = await ApplyHistory.findAll({
+        where: {
+            job_id: job.job_id,
+            user_id: user.user_id,
+        },
+    });
     
+    // Validation - 이미 지원한 채용공고인지 중복 검사
+    if(applyHistory.length !== 0) {
+        console.log('이미 지원하신 회사입니다.');
+        return res.status(400).send('이미 지원하신 회사입니다.');
+    }
+
     // Validation - 지원하고자 하는 채용공고가 없을 경우
     if(!job) {
         console.log('지원하고자 하는 채용공고가 없습니다.');
